@@ -1,6 +1,25 @@
 let humanScore = 0;
 let computerScore = 0;
 
+function getHumanChoice() {
+    // Get first character of input string since each choice has a unique first letter anyway. How's that for data validation!
+    
+    let choice = prompt('Choose: Rock (R), Paper (P), or Scissors (S)').charAt(0).toLowerCase();
+    
+    let choiceString
+    
+    if (choice == 'r') {
+        choiceString = 'Rock';
+    } else if (choice == 'p') {
+        choiceString = 'Paper';
+    } else {
+        choiceString = 'Scissors';
+    };
+
+    console.log('Player chooses ' + choiceString + ".");
+    return choice;
+};
+
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
 };
@@ -8,23 +27,20 @@ function getRandomInt(max) {
 function getComputerChoice() {
     switch(getRandomInt(3)) {
         case 0:
+            console.log('Computer chooses Rock.');
+            console.log('Good luck!');
             return 'r';     // i.e. Rock
-            break;
         case 1:
+            console.log('Computer chooses Paper.');
+            console.log('Good luck!');
             return 'p';     // i.e. Paper
-            break;
         case 2:
+            console.log('Computer chooses Scissors.');
+            console.log('Good luck!');
             return 's';     // i.e. Scissors
-            break; 
     }
 };
 
-function getHumanChoice() {
-    // Get first character of input string since each choice has a unique first letter anyway. How's that for data validation!
-    
-    let choice = prompt('Choose: Rock (R), Paper (P), or Scissors (S)').charAt(0).toLowerCase();
-    return choice;
-};
 
 function playRound(humanChoice, computerChoice) {
     let selections = humanChoice + computerChoice
@@ -70,7 +86,7 @@ function playRound(humanChoice, computerChoice) {
 const humanSelection = getHumanChoice();
 const computerSelection = getComputerChoice();
 
-playRound(humanSelection, computerSelection);
+console.log(playRound(humanSelection, computerSelection));
 
 
 // Rock vs. Scissors: Rock wins (rock smashes scissors).
