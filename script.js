@@ -4,19 +4,24 @@ let computerScore = 0;
 function getHumanChoice() {
     // Get first character of input string since each choice has a unique first letter anyway. How's that for data validation!
     
-    let choice = prompt('Choose: Rock (R), Paper (P), or Scissors (S)').charAt(0).toLowerCase();
-    
-    let choiceString
-    
+    let choice 
+
+    do {
+        choice = prompt('Choose: Rock (R), Paper (P), or Scissors (S)').charAt(0).toLowerCase();
+    } while (choice !== 'r' && choice !== 'p' && choice !== 's');
+
+    let choiceAsString
+
     if (choice == 'r') {
-        choiceString = 'Rock';
+        choiceAsString = 'Rock';
     } else if (choice == 'p') {
-        choiceString = 'Paper';
-    } else {
-        choiceString = 'Scissors';
+        choiceAsString = 'Paper';
+    } else if (choice == 's') {
+        choiceAsString = 'Scissors';
     };
 
-    console.log('Player chooses ' + choiceString + ".");
+    console.log('Player chooses ' + choiceAsString + '.');
+
     return choice;
 };
 
