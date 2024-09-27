@@ -88,9 +88,6 @@ function playRound(humanChoice, computerChoice) {
     }
 }
 
-// const humanSelection = getHumanChoice();
-// const computerSelection = getComputerChoice();
-
 function playGame(totalRounds) {
     let round = 1;
     let humanScore = 0;
