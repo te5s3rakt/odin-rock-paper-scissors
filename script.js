@@ -1,6 +1,3 @@
-let humanScore = 0;
-let computerScore = 0;
-
 function getHumanChoice() {
     // Get first character of input string since each choice has a unique first letter anyway. How's that for data validation!
     
@@ -60,43 +57,66 @@ function playRound(humanChoice, computerChoice) {
 
     switch (selections) {
         case 'rs':
-            humanScore++;
-            return playerWin + advantageRock;
+            console.log(playerWin + advantageRock);
+            return 'player';
         case 'rp':
-            computerScore++;
-            return playerLose + advantagePaper;
+            console.log(playerLose + advantagePaper);
+            return 'computer';
         case 'rr':
-            return draw;
+            console.log(draw);
+            return 'draw';
 
         case 'pr':
-            humanScore++;
-            return playerWin + advantagePaper;
+            console.log(playerWin + advantagePaper);
+            return 'player';
         case 'ps':
-            computerScore++;
-            return playerLose + advantageScissors;
+            console.log(playerLose + advantageScissors);
+            return 'computer';
         case 'pp':
-            return draw;
+            console.log(draw);
+            return 'draw';
 
         case 'sp':
-            humanScore++;
-            return playerWin + advantageScissors;
+            console.log(playerWin + advantageScissors);
+            return 'player';
         case 'sr':
-            computerScore++;
-            return playerLose + advantageRock;
+            console.log(playerLose + advantageRock);
+            return 'computer';
         case 'ss':
-            return draw;
+            console.log(draw);
+            return 'draw';
     }
 }
 
-const humanSelection = getHumanChoice();
-const computerSelection = getComputerChoice();
+// const humanSelection = getHumanChoice();
+// const computerSelection = getComputerChoice();
 
-console.log(playRound(humanSelection, computerSelection));
+function playGame(totalRounds) {
+    let round = 1;
+    let humanScore = 0;
+    let computerScore = 0;
 
+    do {
+        console.log('Round ' + round + '. FIGHT!');
 
-// Rock vs. Scissors: Rock wins (rock smashes scissors).
-// Rock vs. Paper: Paper wins (paper covers rock).
-// Scissors vs. Paper: Scissors wins (scissors cuts paper).
-// Rock vs. Rock: Draw.
-// Paper vs. Paper: Draw.
-// Scissors vs. Scissors: Draw.
+        let winner = playRound(getHumanChoice(), getComputerChoice());
+        
+        if (winner == 'player') humanScore++;
+        if (winner == 'computer') computerScore++;
+
+        console.log('Player has ' + humanScore + ' points.');
+        console.log('Computer has ' + computerScore + ' points.');
+        
+        round++;
+    } while (round <= totalRounds);
+
+    let gameWinner
+
+    if (humanScore > computerScore) gameWinner = 'Player wins!';
+    if (humanScore < computerScore) gameWinner = 'Computer wins!';
+    if (humanScore === computerScore) gameWinner = 'It\'s a Draw.';
+
+    console.log('Game Complete! ' + gameWinner + ' Refresh to play again.');
+}
+
+playGame(5)
