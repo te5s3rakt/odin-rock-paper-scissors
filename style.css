@@ -1,0 +1,70 @@
+:root {
+    --matrix-green: #00FF41;
+    --rock-gradient: linear-gradient(135deg, #8B8C7A, #A9A9A9, #D3D3D3, #8B8C7A);
+    --paper-gradient: linear-gradient(135deg, #F5F5DC, #EDEDED, #F5F5DC);
+    --scissors-gradient: linear-gradient(135deg, #FFA500, #FFA500 40%, #C0C0C0 40%, #D3D3D3 50%, #A9A9A9 60%, #C0C0C0);
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    color: var(--matrix-green);
+    background-color: black;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+h1 {
+    font-weight: bolder;
+}
+
+button {
+    border: none;
+    border-radius: 8px;
+    background: var(--matrix-green);
+    color: black;
+    padding: 8px 16px;
+    width: 100px;
+    font-size: 18px;
+}
+
+#rock:hover {
+    background: var(--rock-gradient);
+}
+
+#paper:hover {
+    background: var(--paper-gradient);
+}
+
+#scissors:hover {
+    background: var(--scissors-gradient);
+}
+
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+.content {
+    flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.selections {
+    display: flex;
+    padding: 20px;
+    gap: 40px;
+}
+
+.footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    font-weight: lighter;
+    font-size: 12px;
+}

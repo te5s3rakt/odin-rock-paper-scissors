@@ -116,4 +116,3 @@ function playGame(totalRounds) {
     console.log('Game Complete! ' + gameWinner + ' Refresh to play again.');
 }
 
-playGame(5)
