@@ -65,40 +65,40 @@ function getComputerChoice() {
 function playRound(humanChoice, computerChoice) {
     let selections = humanChoice + computerChoice
 
-    const advantageRock = ' Rock smashes Scissors.';
-    const advantagePaper = ' Paper covers Rock.';
-    const advantageScissors = ' Scissors cuts Paper.';
+    const advantageRock = 'Rock smashes Scissors. ';
+    const advantagePaper = 'Paper covers Rock. ';
+    const advantageScissors = 'Scissors cuts Paper. ';
     
     const playerWin = 'You Win!';
     const playerLose = 'You Lose!';
-    const draw = 'Draw! Same selection.';
+    const draw = 'Same selection. Draw!';
 
     switch (selections) {
         case 'rs':
-            postLog(playerWin + advantageRock);
+            postLog(advantageRock + playerWin);
             return 'player';
         case 'rp':
-            postLog(playerLose + advantagePaper);
+            postLog(advantagePaper + playerLose);
             return 'computer';
         case 'rr':
             postLog(draw);
             return 'draw';
 
         case 'pr':
-            postLog(playerWin + advantagePaper);
+            postLog(advantagePaper + playerWin);
             return 'player';
         case 'ps':
-            postLog(playerLose + advantageScissors);
+            postLog(advantageScissors + playerLose);
             return 'computer';
         case 'pp':
             postLog(draw);
             return 'draw';
 
         case 'sp':
-            postLog(playerWin + advantageScissors);
+            postLog(advantageScissors + playerWin);
             return 'player';
         case 'sr':
-            postLog(playerLose + advantageRock);
+            postLog(advantageRock + playerLose);
             return 'computer';
         case 'ss':
             postLog(draw);
@@ -144,7 +144,9 @@ function playGame(button) {
         let titleWinner = winner.charAt(0).toUpperCase() + winner.slice(1);
 
         if (score == 4) {
-            postLog('Game Complete! ' + titleWinner + ' wins!');
+            postLog('------------------------------')
+            postLog('Game Complete!');
+            postLog(titleWinner + ' wins!');
             postLog('Select weapon to play again.', '', true);
             gameActive = false;
             return;
