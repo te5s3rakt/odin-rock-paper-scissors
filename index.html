@@ -5,66 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Odin Project: Rock Paper Scissors</title>
     <link rel="stylesheet" href="style.css">
-    <script src="script.js"></script>
+    <script defer src="script.js"></script>
 </head>
 <body>
-    <div class="header">Project: Rock Paper Scissor</div>
+    <div class="header">Project: Rock Paper Scissors</div>
 
     <div class="intro">This is a battle of will. Choose your weapon!</div>
 
     <div class="sticky-header">
         <div class="selections">
-            <button type="button" class="button" id="rock">Rock</button>
-            <button type="button" class="button" id="paper">Paper</button>
-            <button type="button" class="button" id="scissors">Scissors</button>
+            <button id="rock">Rock</button>
+            <button id="paper">Paper</button>
+            <button id="scissors">Scissors</button>
         </div>
 
         <div class="scoreboard">
-            <div class="score" id="score-player">0</div>
+            <div class="score game-start" id="score-player">0</div>
             <div>Player vs Computer</div>
-            <div class="score" id="score-computer">0</div>
+            <div class="score game-start" id="score-computer">0</div>
         </div>
         
-        <div class="log-heading log-ui">Battlelog:</div>
+        <div class="log-heading game-start">Battlelog:</div>
     </div>
-    <div class="log-window log-ui">   
+    <div class="log-window game-start">   
         <div class="log">
-            Round 1. FIGHT!<br>
-            Player chooses Rock.<br>
-            Computer chooses Rock.<br>
-            Good luck!<br>
-            <!-- Draw! Same selection.<br>
-            Player has 0 points.<br>
-            Computer has 0 points.<br>
-            Round 2. FIGHT!<br>
-            Player chooses Rock.<br>
-            Computer chooses Scissors.<br>
-            Good luck!<br>
-            You Win! Rock smashes Scissors.<br>
-            Player has 1 points.<br>
-            Computer has 0 points.<br>
-            Round 3. FIGHT!<br>
-            Player chooses Rock.<br>
-            Computer chooses Paper.<br>
-            Good luck!<br>
-            You Lose! Paper covers Rock.<br>
-            Player has 1 points.<br>
-            Computer has 1 points.<br>
-            Round 4. FIGHT!<br>
-            Player chooses Rock.<br>
-            Computer chooses Paper.<br>
-            Good luck!<br>
-            You Lose! Paper covers Rock.<br>
-            Player has 1 points.<br>
-            Computer has 2 points.<br>
-            Round 5. FIGHT!<br>
-            Player chooses Rock.<br>
-            Computer chooses Rock.<br>
-            Good luck!<br>
-            Draw! Same selection.<br>
-            Player has 1 points.<br>
-            Computer has 2 points.<br>
-            Game Complete! Computer wins! Refresh to play again.<br> -->
+            <div style="align-self: flex-start;">Player chooses Rock.</div>
+            <div style="align-self: flex-end;">Computer chooses Paper.</div>
+            <div>Good luck!</div>
+            <div>You Lose! Paper covers Rock.</div>
+            <div id="again">Again?<span class="blinking-text">_</span></div>
         </div>
     </div>
     <div class="footer">The Odin Project - Foundations</div>

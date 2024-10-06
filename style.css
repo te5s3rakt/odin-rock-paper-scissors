@@ -1,8 +1,12 @@
 :root {
     --matrix-green: #00FF41;
     --rock-gradient: linear-gradient(135deg, #8B8C7A, #A9A9A9 20%, #D3D3D3 40%, #ba7657 60%, #8B8C7A 80%);
-    --paper-gradient: linear-gradient(135deg, #F5F5DC, #EDEDED, #F5F5DC);
+    --paper-gradient: linear-gradient(135deg, #f5f5dc 25%, #ffffff 25%, #ffffff 50%, #f5f5dc 50%, #f5f5dc 75%, #ffffff 75%, #ffffff 100%);
     --scissors-gradient: linear-gradient(135deg, #FFA500, #FFA500 40%, #C0C0C0 40%, #D3D3D3 50%, #A9A9A9 60%, #C0C0C0);
+}
+
+.game-start {
+    visibility: hidden;
 }
 
 body {
@@ -37,7 +41,7 @@ body {
     font-size: 12px;
     color: rgb(209 213 219);
     background-color: rgb(17 24 39);
-    font-family: Inter, "Helvetica Neue", Helvetica, Arial, sans-serif;;
+    font-family: Inter, "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .intro {
@@ -113,16 +117,23 @@ button {
 }
 
 .log {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
     border: solid 1px var(--matrix-green);
     border-top: transparent;
     max-height: 100%;
     overflow-y: auto;
-    display: flex;
-    flex-direction: column;
     padding: 6px;
     margin-bottom: 60px;
 }
 
-/* .log-ui {
-    visibility: hidden;
-} */
+.blinking-text {
+    animation: blink 0.5s infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}

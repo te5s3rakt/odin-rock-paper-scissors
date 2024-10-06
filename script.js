@@ -1,25 +1,17 @@
-function getHumanChoice() {
-    // Get first character of input string since each choice has a unique first letter anyway. How's that for data validation!
-    
-    let choice 
-
-    do {
-        choice = prompt('Choose: Rock (R), Paper (P), or Scissors (S)').charAt(0).toLowerCase();
-    } while (choice !== 'r' && choice !== 'p' && choice !== 's');
-
+function getHumanChoice(choice) {
     let choiceAsString
 
-    if (choice == 'r') {
-        choiceAsString = 'Rock';
-    } else if (choice == 'p') {
-        choiceAsString = 'Paper';
-    } else if (choice == 's') {
-        choiceAsString = 'Scissors';
+    if (choice == 'rock') {
+        choiceAsString = 'Player chooses Rock.';
+    } else if (choice == 'paper') {
+        choiceAsString = 'Player chooses Paper.';
+    } else if (choice == 'scissors') {
+        choiceAsString = 'Player chooses Scissors.';
     };
 
-    console.log('Player chooses ' + choiceAsString + '.');
+    postLog(choiceAsString, 'player');
 
-    return choice;
+    return choice.charAt(0).toLowerCase();
 };
 
 function getRandomInt(max) {
@@ -29,16 +21,13 @@ function getRandomInt(max) {
 function getComputerChoice() {
     switch(getRandomInt(3)) {
         case 0:
-            console.log('Computer chooses Rock.');
-            console.log('Good luck!');
+            postLog('Computer chooses Rock.');
             return 'r';     // i.e. Rock
         case 1:
-            console.log('Computer chooses Paper.');
-            console.log('Good luck!');
+            postLog('Computer chooses Paper.');
             return 'p';     // i.e. Paper
         case 2:
-            console.log('Computer chooses Scissors.');
-            console.log('Good luck!');
+            postLog('Computer chooses Scissors.');
             return 's';     // i.e. Scissors
     }
 };
@@ -115,3 +104,73 @@ function playGame(totalRounds) {
 
     console.log('Game Complete! ' + gameWinner + ' Refresh to play again.');
 }
+
+// REFACTOR
+
+let gameActive = false;
+
+function scrollToBottom() {
+    window.scrollTo(0, document.body.scrollHeight);
+}
+
+function gameStart() {
+    if (!gameActive) {
+        const ui = document.querySelectorAll('.game-start');
+        
+        ui.forEach((div) => {
+            div.style.cssText = 'visibility: visible';
+        });
+        gameActive = true;
+    }
+};
+
+const againPrompt = {
+    add: function() {
+        const log = document.querySelector('.log');
+        const existingPrompt = document.querySelector('#again');
+
+        if (existingPrompt) return; // Prevent adding if it already exists
+
+        const prompt = document.createElement('div');
+        prompt.id = 'again';
+        prompt.textContent = 'Again?';
+
+        const blinker = document.createElement('span');
+        blinker.classList.add('blinking-text');
+        blinker.textContent = '_';
+
+        prompt.appendChild(blinker);
+        log.appendChild(prompt);
+    },
+    remove: function() {
+        const existingPrompt = document.querySelector('#again');
+        if (existingPrompt) existingPrompt.remove();
+    }
+};
+
+function postLog(event, type) {
+    const log = document.querySelector('.log');
+
+    const newEvent = document.createElement('div');
+
+    if (type == 'player') newEvent.style.cssText = 'align-self: flex-start';
+    if (type == 'computer') newEvent.style.cssText = 'align-self: flex-end';
+
+    newEvent.textContent = event;
+
+    log.appendChild(newEvent);
+};
+
+const buttons = document.querySelectorAll('button');
+
+buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+        gameStart();
+        againPrompt.remove();
+        postLog('hello');
+        postLog('hello');
+        postLog('hello');
+        againPrompt.add();
+        scrollToBottom();
+    });
+});
