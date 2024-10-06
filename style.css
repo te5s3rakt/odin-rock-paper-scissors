@@ -129,6 +129,10 @@ button {
     margin-bottom: 60px;
 }
 
+.log-player {align-self: flex-start}
+
+.log-computer {align-self: flex-end}
+
 .blinking-text {
     animation: blink 0.5s infinite;
 }

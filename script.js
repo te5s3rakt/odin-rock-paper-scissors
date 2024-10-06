@@ -1,13 +1,11 @@
 function getHumanChoice(choice) {
     let choiceAsString
 
-    if (choice == 'rock') {
-        choiceAsString = 'Player chooses Rock.';
-    } else if (choice == 'paper') {
-        choiceAsString = 'Player chooses Paper.';
-    } else if (choice == 'scissors') {
-        choiceAsString = 'Player chooses Scissors.';
-    };
+    if (choice == 'rock') choiceAsString = 'Player chooses Rock.';
+    if (choice == 'paper') choiceAsString = 'Player chooses Paper.';
+    if (choice == 'scissors') choiceAsString = 'Player chooses Scissors.';
+    
+    if (choiceAsString == '') return;
 
     postLog(choiceAsString, 'player');
 
@@ -21,14 +19,14 @@ function getRandomInt(max) {
 function getComputerChoice() {
     switch(getRandomInt(3)) {
         case 0:
-            postLog('Computer chooses Rock.');
-            return 'r';     // i.e. Rock
+            postLog('Computer chooses Rock.', 'computer');
+            return 'r';
         case 1:
-            postLog('Computer chooses Paper.');
-            return 'p';     // i.e. Paper
+            postLog('Computer chooses Paper.', 'computer');
+            return 'p';
         case 2:
-            postLog('Computer chooses Scissors.');
-            return 's';     // i.e. Scissors
+            postLog('Computer chooses Scissors.', 'computer');
+            return 's';
     }
 };
 
@@ -46,66 +44,65 @@ function playRound(humanChoice, computerChoice) {
 
     switch (selections) {
         case 'rs':
-            console.log(playerWin + advantageRock);
+            postLog(playerWin + advantageRock);
             return 'player';
         case 'rp':
-            console.log(playerLose + advantagePaper);
+            postLog(playerLose + advantagePaper);
             return 'computer';
         case 'rr':
-            console.log(draw);
+            postLog(draw);
             return 'draw';
 
         case 'pr':
-            console.log(playerWin + advantagePaper);
+            postLog(playerWin + advantagePaper);
             return 'player';
         case 'ps':
-            console.log(playerLose + advantageScissors);
+            postLog(playerLose + advantageScissors);
             return 'computer';
         case 'pp':
-            console.log(draw);
+            postLog(draw);
             return 'draw';
 
         case 'sp':
-            console.log(playerWin + advantageScissors);
+            postLog(playerWin + advantageScissors);
             return 'player';
         case 'sr':
-            console.log(playerLose + advantageRock);
+            postLog(playerLose + advantageRock);
             return 'computer';
         case 'ss':
-            console.log(draw);
+            postLog(draw);
             return 'draw';
     }
 }
 
-function playGame(totalRounds) {
-    let round = 1;
-    let humanScore = 0;
-    let computerScore = 0;
+function playGame(button) {
+    const humanScore = document.querySelector('#score-player')
+    const computerScore = document.querySelector('#score-computer')
 
-    do {
-        console.log('Round ' + round + '. FIGHT!');
+    if (gameActive) removeLog();
+    
+    gameStart();
 
-        let winner = playRound(getHumanChoice(), getComputerChoice());
+    let winner = playRound(getHumanChoice(button), getComputerChoice());
+
+    if (winner !== 'draw') {
+        const scoreCounter = document.querySelector('#' + winner);
         
-        if (winner == 'player') humanScore++;
-        if (winner == 'computer') computerScore++;
-
-        console.log('Player has ' + humanScore + ' points.');
-        console.log('Computer has ' + computerScore + ' points.');
+        let score = scoreCounter.textContent++
         
-        round++;
-    } while (round <= totalRounds);
+        let titleWinner = winner.charAt(0).toUpperCase() + winner.slice(1);
 
-    let gameWinner
+        if (score == 4) {
+            postLog('Game Complete! ' + titleWinner + ' wins!');
+            postLog('Refresh to play again.');
+            return;
+        };
+    };
 
-    if (humanScore > computerScore) gameWinner = 'Player wins!';
-    if (humanScore < computerScore) gameWinner = 'Computer wins!';
-    if (humanScore === computerScore) gameWinner = 'It\'s a Draw.';
+    postLog('Again?','',true);
 
-    console.log('Game Complete! ' + gameWinner + ' Refresh to play again.');
-}
-
-// REFACTOR
+    scrollToBottom();
+};
 
 let gameActive = false;
 
@@ -124,53 +121,36 @@ function gameStart() {
     }
 };
 
-const againPrompt = {
-    add: function() {
-        const log = document.querySelector('.log');
-        const existingPrompt = document.querySelector('#again');
-
-        if (existingPrompt) return; // Prevent adding if it already exists
-
-        const prompt = document.createElement('div');
-        prompt.id = 'again';
-        prompt.textContent = 'Again?';
-
-        const blinker = document.createElement('span');
-        blinker.classList.add('blinking-text');
-        blinker.textContent = '_';
-
-        prompt.appendChild(blinker);
-        log.appendChild(prompt);
-    },
-    remove: function() {
-        const existingPrompt = document.querySelector('#again');
-        if (existingPrompt) existingPrompt.remove();
-    }
-};
-
-function postLog(event, type) {
+function postLog(event, type, cursor) {
     const log = document.querySelector('.log');
 
     const newEvent = document.createElement('div');
 
-    if (type == 'player') newEvent.style.cssText = 'align-self: flex-start';
-    if (type == 'computer') newEvent.style.cssText = 'align-self: flex-end';
+    const blinker = document.createElement('span');
+    blinker.classList.add('blinking-text');
+    blinker.textContent = '_';
+
+    if (type == 'player') newEvent.classList.add('log-player');
+    if (type == 'computer') newEvent.classList.add('log-computer');
 
     newEvent.textContent = event;
 
+    if (cursor) newEvent.appendChild(blinker);
+
     log.appendChild(newEvent);
 };
+
+function removeLog() {
+    const log = document.querySelector('.log');
+    const lastItem = log.lastElementChild;
+
+    lastItem.remove();
+}
 
 const buttons = document.querySelectorAll('button');
 
 buttons.forEach((button) => {
     button.addEventListener('click', () => {
-        gameStart();
-        againPrompt.remove();
-        postLog('hello');
-        postLog('hello');
-        postLog('hello');
-        againPrompt.add();
-        scrollToBottom();
+        playGame(button.id);
     });
 });
