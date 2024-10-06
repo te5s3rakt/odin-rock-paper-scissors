@@ -1,3 +1,39 @@
+let gameActive = false;
+
+function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+};
+
+function postLog(event, type, cursor) {
+    const log = document.querySelector('.log');
+
+    const newEvent = document.createElement('div');
+
+    const blinker = document.createElement('span');
+    blinker.classList.add('blinking-text');
+    blinker.textContent = '_';
+
+    if (type == 'player') newEvent.classList.add('log-player');
+    if (type == 'computer') newEvent.classList.add('log-computer');
+
+    newEvent.textContent = event;
+
+    if (cursor) newEvent.appendChild(blinker);
+
+    log.appendChild(newEvent);
+};
+
+function removeLog() {
+    const log = document.querySelector('.log');
+    const lastItem = log.lastElementChild;
+
+    lastItem.remove();
+};
+
+function scrollToBottom() {
+    window.scrollTo(0, document.body.scrollHeight);
+};
+
 function getHumanChoice(choice) {
     let choiceAsString
 
@@ -10,10 +46,6 @@ function getHumanChoice(choice) {
     postLog(choiceAsString, 'player');
 
     return choice.charAt(0).toLowerCase();
-};
-
-function getRandomInt(max) {
-    return Math.floor(Math.random() * max);
 };
 
 function getComputerChoice() {
@@ -29,7 +61,6 @@ function getComputerChoice() {
             return 's';
     }
 };
-
 
 function playRound(humanChoice, computerChoice) {
     let selections = humanChoice + computerChoice
@@ -73,7 +104,30 @@ function playRound(humanChoice, computerChoice) {
             postLog(draw);
             return 'draw';
     }
-}
+};
+
+function gameStart() {
+    const log = document.querySelector('.log');
+    const ui = document.querySelectorAll('.game-start');
+
+    const humanScore = document.querySelector('#player');
+    const computerScore = document.querySelector('#computer');
+
+    if (!gameActive) {
+        while (log.firstChild) {
+            log.removeChild(log.firstChild);
+        };
+
+        humanScore.textContent = 0
+        computerScore.textContent = 0
+
+        ui.forEach((div) => {
+            div.style.cssText = 'visibility: visible';
+        });
+
+        gameActive = true;
+    }
+};
 
 function playGame(button) {
     if (gameActive) removeLog();
@@ -102,65 +156,10 @@ function playGame(button) {
     scrollToBottom();
 };
 
-let gameActive = false;
-
-function scrollToBottom() {
-    window.scrollTo(0, document.body.scrollHeight);
-}
-
-function gameStart() {
-    const log = document.querySelector('.log');
-    const ui = document.querySelectorAll('.game-start');
-
-    const humanScore = document.querySelector('#player');
-    const computerScore = document.querySelector('#computer');
-
-    if (!gameActive) {
-        while (log.firstChild) {
-            log.removeChild(log.firstChild);
-        };
-
-        humanScore.textContent = 0
-        computerScore.textContent = 0
-
-        ui.forEach((div) => {
-            div.style.cssText = 'visibility: visible';
-        });
-
-        gameActive = true;
-    }
-};
-
-function postLog(event, type, cursor) {
-    const log = document.querySelector('.log');
-
-    const newEvent = document.createElement('div');
-
-    const blinker = document.createElement('span');
-    blinker.classList.add('blinking-text');
-    blinker.textContent = '_';
-
-    if (type == 'player') newEvent.classList.add('log-player');
-    if (type == 'computer') newEvent.classList.add('log-computer');
-
-    newEvent.textContent = event;
-
-    if (cursor) newEvent.appendChild(blinker);
-
-    log.appendChild(newEvent);
-};
-
-function removeLog() {
-    const log = document.querySelector('.log');
-    const lastItem = log.lastElementChild;
-
-    lastItem.remove();
-}
-
 const buttons = document.querySelectorAll('button');
 
 buttons.forEach((button) => {
     button.addEventListener('click', () => {
         playGame(button.id);
+        });
     });
-});
