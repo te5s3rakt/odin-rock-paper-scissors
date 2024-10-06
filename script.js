@@ -76,9 +76,6 @@ function playRound(humanChoice, computerChoice) {
 }
 
 function playGame(button) {
-    const humanScore = document.querySelector('#score-player')
-    const computerScore = document.querySelector('#score-computer')
-
     if (gameActive) removeLog();
     
     gameStart();
@@ -94,7 +91,8 @@ function playGame(button) {
 
         if (score == 4) {
             postLog('Game Complete! ' + titleWinner + ' wins!');
-            postLog('Refresh to play again.');
+            postLog('Select weapon to play again.', '', true);
+            gameActive = false;
             return;
         };
     };
@@ -111,12 +109,24 @@ function scrollToBottom() {
 }
 
 function gameStart() {
+    const log = document.querySelector('.log');
+    const ui = document.querySelectorAll('.game-start');
+
+    const humanScore = document.querySelector('#player');
+    const computerScore = document.querySelector('#computer');
+
     if (!gameActive) {
-        const ui = document.querySelectorAll('.game-start');
-        
+        while (log.firstChild) {
+            log.removeChild(log.firstChild);
+        };
+
+        humanScore.textContent = 0
+        computerScore.textContent = 0
+
         ui.forEach((div) => {
             div.style.cssText = 'visibility: visible';
         });
+
         gameActive = true;
     }
 };
